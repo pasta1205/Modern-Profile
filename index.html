@@ -23,24 +23,32 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@500&family=Playfair+Display:wght@700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Playfair+Display:wght@700&display=swap"
     rel="stylesheet" />
 
   <style>
     /* ═══════════════════════════════════════════
-       DESIGN TOKENS
+       DESIGN TOKENS — Deep Navy + Electric Blue
     ═══════════════════════════════════════════ */
     :root {
-      --color-bg: #F7F8F5;
+      --color-bg: #F0F4F8;
+      --color-bg-alt: #E2E8F0;
       --color-surface: #FFFFFF;
-      --color-primary: #2D5A3D;
-      --color-primary-light: #4A7C5C;
-      --color-accent: #8FBD9A;
-      --color-text-dark: #1A1A1A;
-      --color-text-body: #4A4A4A;
-      --color-text-muted: #888888;
-      --color-border: #E8EDE9;
-      --color-hero-overlay: rgba(20, 40, 25, 0.52);
+      --color-surface-glass: rgba(255, 255, 255, 0.7);
+      --color-primary: #2563EB;
+      --color-primary-hover: #1D4ED8;
+      --color-primary-light: #3B82F6;
+      --color-accent: #60A5FA;
+      --color-accent-soft: rgba(59, 130, 246, 0.1);
+      --color-navy: #0F172A;
+      --color-navy-light: #1E293B;
+      --color-text-dark: #0F172A;
+      --color-text-body: #475569;
+      --color-text-muted: #94A3B8;
+      --color-border: #E2E8F0;
+      --color-hero-overlay: linear-gradient(135deg, rgba(15, 23, 42, 0.82) 0%, rgba(30, 41, 59, 0.65) 50%, rgba(15, 23, 42, 0.78) 100%);
+      --gradient-primary: linear-gradient(135deg, #2563EB 0%, #3B82F6 50%, #60A5FA 100%);
+      --gradient-glow: radial-gradient(ellipse at 30% 50%, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
       --font-display: 'Playfair Display', Georgia, serif;
       --font-body: 'Inter', -apple-system, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
@@ -48,6 +56,9 @@
       --max-width: 1200px;
       --radius-card: 16px;
       --radius-pill: 50px;
+      --shadow-card: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.06);
+      --shadow-card-hover: 0 8px 32px rgba(15, 23, 42, 0.12), 0 2px 8px rgba(59, 130, 246, 0.08);
+      --shadow-glow: 0 0 40px rgba(59, 130, 246, 0.15);
     }
 
     /* ═══════════════════════════════════════════
@@ -112,30 +123,31 @@
       font-family: var(--font-mono);
       font-weight: 500;
       font-size: 0.75rem;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--color-accent);
+      color: var(--color-primary-light);
       margin-bottom: 12px;
     }
 
     .section-title {
       font-family: var(--font-body);
-      font-weight: 600;
-      font-size: 2rem;
+      font-weight: 700;
+      font-size: 2.25rem;
       color: var(--color-text-dark);
       margin-bottom: 8px;
       position: relative;
       display: inline-block;
+      letter-spacing: -0.02em;
     }
 
     .section-title::after {
       content: '';
       position: absolute;
       left: 0;
-      bottom: -6px;
+      bottom: -8px;
       height: 3px;
       width: 0;
-      background: var(--color-accent);
+      background: var(--gradient-primary);
       border-radius: 2px;
       transition: width 0.5s ease-out;
     }
@@ -148,6 +160,7 @@
       color: var(--color-text-muted);
       max-width: 600px;
       margin-bottom: 48px;
+      font-size: 1.05rem;
     }
 
     .section-header {
@@ -163,29 +176,32 @@
       font-family: var(--font-body);
       font-weight: 500;
       font-size: 0.95rem;
-      transition: all 0.25s ease;
+      transition: all 0.3s ease;
       white-space: nowrap;
+      position: relative;
     }
 
     .btn-primary {
       background: var(--color-primary);
       color: #fff;
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.3);
     }
 
     .btn-primary:hover {
-      background: var(--color-primary-light);
+      background: var(--color-primary-hover);
       transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(45, 90, 61, 0.25);
+      box-shadow: 0 8px 28px rgba(37, 99, 235, 0.4);
     }
 
     .btn-outline {
       background: transparent;
       color: #fff;
-      border: 1.5px solid #fff;
+      border: 1.5px solid rgba(255, 255, 255, 0.4);
     }
 
     .btn-outline:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.7);
       transform: translateY(-2px);
     }
 
@@ -199,13 +215,14 @@
       background: var(--color-primary);
       color: #fff;
       transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.25);
     }
 
     /* Scroll-reveal base */
     .reveal {
       opacity: 0;
-      transform: translateY(20px);
-      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease-out, transform 0.7s ease-out;
     }
 
     .reveal.visible {
@@ -223,16 +240,18 @@
       width: 100%;
       height: var(--nav-height);
       z-index: 1000;
-      transition: background 0.35s ease, box-shadow 0.35s ease;
+      transition: background 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
       display: flex;
       align-items: center;
+      border-bottom: 1px solid transparent;
     }
 
     .navbar.scrolled {
-      background: rgba(247, 248, 245, 0.92);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+      background: rgba(240, 244, 248, 0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      box-shadow: 0 1px 12px rgba(15, 23, 42, 0.06);
+      border-bottom-color: var(--color-border);
     }
 
     .navbar .container {
@@ -243,10 +262,11 @@
 
     .nav-logo {
       font-family: var(--font-body);
-      font-weight: 600;
-      font-size: 1.35rem;
+      font-weight: 700;
+      font-size: 1.4rem;
       color: #fff;
       transition: color 0.35s ease;
+      letter-spacing: -0.02em;
     }
 
     .navbar.scrolled .nav-logo {
@@ -262,10 +282,10 @@
     .nav-links a {
       font-weight: 500;
       font-size: 0.9rem;
-      color: rgba(255, 255, 255, 0.85);
+      color: rgba(255, 255, 255, 0.8);
       position: relative;
       padding-bottom: 4px;
-      transition: color 0.35s ease;
+      transition: color 0.3s ease;
     }
 
     .navbar.scrolled .nav-links a {
@@ -275,19 +295,20 @@
     .nav-links a::after {
       content: '';
       position: absolute;
-      bottom: -2px;
+      bottom: -4px;
       left: 50%;
       transform: translateX(-50%);
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
-      background: var(--color-accent);
+      width: 0;
+      height: 2px;
+      border-radius: 1px;
+      background: var(--color-primary-light);
       opacity: 0;
-      transition: opacity 0.25s ease;
+      transition: all 0.25s ease;
     }
 
     .nav-links a.active::after {
       opacity: 1;
+      width: 20px;
     }
 
     .nav-links a:hover {
@@ -337,7 +358,7 @@
     .mobile-menu {
       position: fixed;
       inset: 0;
-      background: rgba(20, 40, 25, 0.97);
+      background: rgba(15, 23, 42, 0.97);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -374,6 +395,7 @@
       display: flex;
       align-items: center;
       overflow: hidden;
+      background: var(--color-navy);
     }
 
     .hero-bg {
@@ -387,7 +409,19 @@
       position: absolute;
       inset: 0;
       background: var(--color-hero-overlay);
-      background: linear-gradient(135deg, rgba(20, 40, 25, 0.65) 0%, rgba(20, 40, 25, 0.42) 100%);
+    }
+
+    /* Subtle blue glow on hero */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: -10%;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.12) 0%, transparent 70%);
+      z-index: 1;
+      pointer-events: none;
     }
 
     .hero-content {
@@ -400,7 +434,7 @@
       font-family: var(--font-mono);
       font-weight: 500;
       font-size: 0.75rem;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.15em;
       text-transform: uppercase;
       color: var(--color-accent);
       margin-bottom: 20px;
@@ -441,12 +475,10 @@
     }
 
     @keyframes blink {
-
       0%,
       100% {
         opacity: 1;
       }
-
       50% {
         opacity: 0;
       }
@@ -470,12 +502,12 @@
     }
 
     .hero-socials a {
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.5);
       transition: color 0.25s ease, transform 0.25s ease;
     }
 
     .hero-socials a:hover {
-      color: #fff;
+      color: var(--color-accent);
       transform: translateY(-2px);
     }
 
@@ -543,9 +575,9 @@
       width: 100%;
       height: 100%;
       border-radius: var(--radius-card);
-      background: var(--color-accent);
+      background: var(--gradient-primary);
       z-index: 0;
-      opacity: 0.4;
+      opacity: 0.2;
     }
 
     .about-photo {
@@ -554,6 +586,7 @@
       border-radius: var(--radius-card);
       width: 100%;
       object-fit: cover;
+      box-shadow: var(--shadow-card);
     }
 
     .about-text h3 {
@@ -611,12 +644,14 @@
       border: 1px solid var(--color-border);
       border-radius: var(--radius-card);
       padding: 32px;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-card);
     }
 
     .skill-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.08);
+      box-shadow: var(--shadow-card-hover);
+      border-color: rgba(59, 130, 246, 0.2);
     }
 
     .skill-icon {
@@ -625,10 +660,10 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: rgba(143, 189, 154, 0.12);
+      background: var(--color-accent-soft);
       border-radius: 12px;
       margin-bottom: 20px;
-      color: var(--color-primary-light);
+      color: var(--color-primary);
     }
 
     .skill-icon svg {
@@ -676,7 +711,7 @@
     .resume-col h3 svg {
       width: 22px;
       height: 22px;
-      color: var(--color-primary-light);
+      color: var(--color-primary);
     }
 
     .timeline-item {
@@ -698,9 +733,9 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: var(--color-accent);
+      background: var(--color-primary);
       border: 2px solid var(--color-surface);
-      box-shadow: 0 0 0 3px var(--color-accent);
+      box-shadow: 0 0 0 3px var(--color-primary-light);
     }
 
     .timeline-item .tl-card {
@@ -708,13 +743,14 @@
       border: 1px solid var(--color-border);
       border-radius: var(--radius-card);
       padding: 24px;
-      border-left: 3px solid var(--color-accent);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      border-left: 3px solid var(--color-primary);
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-card);
     }
 
     .timeline-item .tl-card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      box-shadow: var(--shadow-card-hover);
     }
 
     .tl-card h4 {
@@ -775,6 +811,7 @@
       background: var(--color-primary);
       color: #fff;
       border-color: var(--color-primary);
+      box-shadow: 0 4px 12px rgba(37, 99, 235, 0.25);
     }
 
     .projects-grid {
@@ -789,12 +826,14 @@
       border-radius: var(--radius-card);
       overflow: hidden;
       cursor: pointer;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      transition: all 0.3s ease;
+      box-shadow: var(--shadow-card);
     }
 
     .project-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-card-hover);
+      border-color: rgba(59, 130, 246, 0.2);
     }
 
     .project-card.hidden {
@@ -820,8 +859,8 @@
       text-transform: uppercase;
       padding: 4px 12px;
       border-radius: var(--radius-pill);
-      background: rgba(143, 189, 154, 0.15);
-      color: var(--color-primary-light);
+      background: var(--color-accent-soft);
+      color: var(--color-primary);
       margin-bottom: 12px;
     }
 
@@ -852,8 +891,8 @@
     .modal-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.55);
-      backdrop-filter: blur(4px);
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(6px);
       z-index: 2000;
       display: flex;
       align-items: center;
@@ -880,6 +919,7 @@
       position: relative;
       transform: translateY(20px) scale(0.97);
       transition: transform 0.3s ease;
+      box-shadow: 0 24px 64px rgba(15, 23, 42, 0.2);
     }
 
     .modal-overlay.open .modal {
@@ -990,15 +1030,15 @@
        FOOTER
     ═══════════════════════════════════════════ */
     .footer {
-      background: var(--color-primary);
+      background: var(--color-navy);
       padding: 60px 0 32px;
       text-align: center;
-      color: rgba(255, 255, 255, 0.7);
+      color: rgba(255, 255, 255, 0.6);
     }
 
     .footer-logo {
       font-family: var(--font-body);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 1.5rem;
       color: #fff;
       margin-bottom: 12px;
@@ -1020,12 +1060,12 @@
     }
 
     .footer-socials a {
-      color: rgba(255, 255, 255, 0.6);
+      color: rgba(255, 255, 255, 0.4);
       transition: color 0.25s ease, transform 0.25s ease;
     }
 
     .footer-socials a:hover {
-      color: #fff;
+      color: var(--color-accent);
       transform: translateY(-2px);
     }
 
@@ -1036,8 +1076,8 @@
 
     .footer-copy {
       font-size: 0.8rem;
-      color: rgba(255, 255, 255, 0.4);
-      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.3);
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
       padding-top: 24px;
     }
 
@@ -1060,7 +1100,7 @@
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.3s ease, transform 0.3s ease;
-      box-shadow: 0 4px 16px rgba(45, 90, 61, 0.3);
+      box-shadow: 0 4px 16px rgba(37, 99, 235, 0.35);
       border: none;
       cursor: pointer;
     }
@@ -1072,6 +1112,7 @@
 
     .scroll-top:hover {
       transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
     }
 
     .scroll-top svg {
@@ -1083,7 +1124,6 @@
        ANIMATIONS (Reduced Motion)
     ═══════════════════════════════════════════ */
     @media (prefers-reduced-motion: reduce) {
-
       *,
       *::before,
       *::after {
@@ -1191,6 +1231,10 @@
       .modal {
         padding: 24px;
       }
+
+      .section-title {
+        font-size: 1.75rem;
+      }
     }
 
     @media (max-width: 480px) {
@@ -1258,7 +1302,6 @@
         <a href="#contact" class="btn btn-outline">Get In Touch</a>
       </div>
       <div class="hero-socials">
-        <!-- LinkedIn -->
         <a href="https://www.linkedin.com/in/partha-sarathi-samanta-5b4543328/" target="_blank" rel="noopener"
           aria-label="LinkedIn">
           <svg viewBox="0 0 24 24" fill="currentColor">
@@ -1266,14 +1309,12 @@
               d="M20.47 2H3.53A1.45 1.45 0 002 3.47v17.06A1.45 1.45 0 003.47 22h17.06A1.45 1.45 0 0022 20.53V3.47A1.45 1.45 0 0020.47 2zM8.09 18.74h-3v-9h3v9zM6.59 8.48a1.56 1.56 0 110-3.12 1.56 1.56 0 010 3.12zM18.91 18.74h-3v-4.38c0-1.05-.02-2.38-1.45-2.38-1.45 0-1.67 1.13-1.67 2.31v4.45h-3v-9h2.88v1.23h.04a3.16 3.16 0 012.85-1.56c3.04 0 3.6 2 3.6 4.61v4.72z" />
           </svg>
         </a>
-        <!-- Instagram -->
         <a href="https://www.instagram.com/_ps_samanta1205/" target="_blank" rel="noopener" aria-label="Instagram">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path
               d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.97.25 2.43.41.61.24 1.05.52 1.51.98.46.46.74.9.98 1.51.17.46.36 1.26.41 2.43.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.97-.41 2.43a4.07 4.07 0 01-.98 1.51c-.46.46-.9.74-1.51.98-.46.17-1.26.36-2.43.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.25-2.43-.41a4.07 4.07 0 01-1.51-.98 4.07 4.07 0 01-.98-1.51c-.17-.46-.36-1.26-.41-2.43C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.97.41-2.43a4.07 4.07 0 01.98-1.51 4.07 4.07 0 011.51-.98c.46-.17 1.26-.36 2.43-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.84 5.84 0 00-2.13 1.38A5.84 5.84 0 00.63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91a5.84 5.84 0 001.38 2.13 5.84 5.84 0 002.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.84 5.84 0 002.13-1.38 5.84 5.84 0 001.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.84 5.84 0 00-1.38-2.13A5.84 5.84 0 0019.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zM12 16a4 4 0 110-8 4 4 0 010 8zm6.41-11.15a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z" />
           </svg>
         </a>
-        <!-- Facebook -->
         <a href="https://www.facebook.com/share/16qUDBSfzA/" target="_blank" rel="noopener" aria-label="Facebook">
           <svg viewBox="0 0 24 24" fill="currentColor">
             <path
@@ -1334,114 +1375,65 @@
           hands-on AWS internship experience.</p>
       </div>
       <div class="skills-grid">
-        <!-- C/C++ -->
         <div class="skill-card reveal">
           <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <polyline points="16 18 22 12 16 6" />
-              <polyline points="8 6 2 12 8 18" />
-              <line x1="14" y1="4" x2="10" y2="20" />
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 18 22 12 16 6" /><polyline points="8 6 2 12 8 18" /><line x1="14" y1="4" x2="10" y2="20" /></svg>
           </div>
           <h4>C / C++</h4>
           <p>Strong foundation in programming logic and problem solving.</p>
         </div>
-        <!-- Python -->
         <div class="skill-card reveal">
           <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <polyline points="4 17 10 11 4 5" />
-              <line x1="12" y1="19" x2="20" y2="19" />
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="4 17 10 11 4 5" /><line x1="12" y1="19" x2="20" y2="19" /></svg>
           </div>
           <h4>Python</h4>
           <p>Experience with scripting, automation, and basics of data analysis.</p>
         </div>
-        <!-- AWS -->
         <div class="skill-card reveal">
           <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z" />
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z" /></svg>
           </div>
           <h4>Amazon Web Services</h4>
           <p>Hands-on with EC2, RDS, S3, Route 53, Client VPN, Lambda, and IAM.</p>
         </div>
-        <!-- DBMS -->
         <div class="skill-card reveal">
           <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <ellipse cx="12" cy="5" rx="9" ry="3" />
-              <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
-              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><ellipse cx="12" cy="5" rx="9" ry="3" /><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" /><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" /></svg>
           </div>
           <h4>DBMS</h4>
           <p>Understanding of relational databases; experience with PostgreSQL (RDS).</p>
         </div>
-        <!-- DSA -->
         <div class="skill-card reveal">
           <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <line x1="18" y1="20" x2="18" y2="10" />
-              <line x1="12" y1="20" x2="12" y2="4" />
-              <line x1="6" y1="20" x2="6" y2="14" />
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>
           </div>
           <h4>Data Structures &amp; Algorithms</h4>
           <p>Problem-solving using standard data structures and algorithm techniques.</p>
         </div>
-        <!-- HTML/CSS -->
         <div class="skill-card reveal">
           <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M12 2L2 7l10 5 10-5-10-5z" />
-              <path d="M2 17l10 5 10-5" />
-              <path d="M2 12l10 5 10-5" />
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z" /><path d="M2 17l10 5 10-5" /><path d="M2 12l10 5 10-5" /></svg>
           </div>
           <h4>HTML / CSS / Bootstrap</h4>
           <p>Frontend basics for building responsive, clean web interfaces.</p>
         </div>
-        <!-- Networking -->
         <div class="skill-card reveal">
           <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
-              <path d="M7 11V7a5 5 0 0110 0v4" />
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2" /><path d="M7 11V7a5 5 0 0110 0v4" /></svg>
           </div>
           <h4>Networking &amp; Security</h4>
           <p>VPCs, Security Groups, IAM roles, and certificate-based VPN auth.</p>
         </div>
-        <!-- DevOps -->
         <div class="skill-card reveal">
           <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <circle cx="12" cy="12" r="3" />
-              <path
-                d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" />
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3" /><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z" /></svg>
           </div>
           <h4>DevOps Fundamentals</h4>
           <p>CI/CD concepts, cloud lifecycle, infrastructure thinking.</p>
         </div>
-        <!-- Photography -->
         <div class="skill-card reveal">
           <div class="skill-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" />
-              <circle cx="12" cy="13" r="4" />
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z" /><circle cx="12" cy="13" r="4" /></svg>
           </div>
           <h4>Photography</h4>
           <p>Creative eye for visual composition — personal hobby.</p>
@@ -1460,14 +1452,9 @@
           in cloud infrastructure, system design, and DevOps tools.</p>
       </div>
       <div class="resume-grid">
-        <!-- Education -->
         <div class="resume-col reveal">
           <h3>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
-              <path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5" />
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5" /></svg>
             Education
           </h3>
           <div class="timeline-item">
@@ -1491,19 +1478,13 @@
               <h4>B.Tech in CSE</h4>
               <p class="tl-date">2024 – Present</p>
               <p class="tl-place">Silicon University, Bhubaneswar</p>
-              <p>Pursuing B.Tech with focus on cloud computing, programming (C/C++, Python), DSA, and AWS technologies.
-              </p>
+              <p>Pursuing B.Tech with focus on cloud computing, programming (C/C++, Python), DSA, and AWS technologies.</p>
             </div>
           </div>
         </div>
-        <!-- Experience -->
         <div class="resume-col reveal">
           <h3>
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-              stroke-linejoin="round">
-              <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
-              <path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" />
-            </svg>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2" /><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2" /></svg>
             Experience
           </h3>
           <div class="timeline-item">
@@ -1511,8 +1492,7 @@
               <h4>AWS Masters Intern</h4>
               <p class="tl-date">June 2025 – July 2025</p>
               <p class="tl-place">Ingenious Tech World (Remote)</p>
-              <p>Gained foundational experience in AWS cloud services, including EC2, S3, IAM, and VPC configuration
-                through structured training and hands-on labs.</p>
+              <p>Gained foundational experience in AWS cloud services, including EC2, S3, IAM, and VPC configuration through structured training and hands-on labs.</p>
             </div>
           </div>
           <div class="timeline-item">
@@ -1520,8 +1500,7 @@
               <h4>AWS Data Engineering &amp; DevOps Intern</h4>
               <p class="tl-date">May 2026 – June 2026</p>
               <p class="tl-place">Ingenious Tech World (Remote)</p>
-              <p>Deployed and managed cloud infrastructure using AWS services. Configured VPCs, EC2 instances, and
-                implemented security best practices.</p>
+              <p>Deployed and managed cloud infrastructure using AWS services. Configured VPCs, EC2 instances, and implemented security best practices.</p>
             </div>
           </div>
           <div class="timeline-item">
@@ -1529,8 +1508,7 @@
               <h4>AWS Mentor</h4>
               <p class="tl-date">May 2026 – June 2026</p>
               <p class="tl-place">Ingenious Tech World (Remote)</p>
-              <p>Mentoring students in AWS Masters &amp; Intro to AWS Data Engineering courses. Leading team meetings
-                with networking and cloud fundamentals sessions.</p>
+              <p>Mentoring students in AWS Masters &amp; Intro to AWS Data Engineering courses. Leading team meetings with networking and cloud fundamentals sessions.</p>
             </div>
           </div>
         </div>
@@ -1553,7 +1531,6 @@
         <button class="filter-btn" data-filter="others">Others</button>
       </div>
       <div class="projects-grid">
-        <!-- Project 1 -->
         <div class="project-card reveal" data-category="cloud" data-modal="project1" id="project-card-1">
           <img src="assets/img/projects/vpn-rds.jpg" alt="Web Hosting + Secure RDS Access" class="project-img" />
           <div class="project-body">
@@ -1563,7 +1540,6 @@
             <p>EC2-hosted site with a private PostgreSQL RDS accessed securely via AWS Client VPN.</p>
           </div>
         </div>
-        <!-- Project 2 -->
         <div class="project-card reveal" data-category="cloud" data-modal="project2" id="project-card-2">
           <img src="assets/img/projects/s3-site.jpg" alt="S3 Static Website with CloudFront" class="project-img" />
           <div class="project-body">
@@ -1588,19 +1564,11 @@
         <div class="contact-buttons">
           <a href="https://mail.google.com/mail/?view=cm&fs=1&to=cse.24bcsi60@silicon.ac.in" target="_blank"
             rel="noopener" class="btn btn-primary">Send an Email
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
           </a>
           <a href="https://www.linkedin.com/in/partha-sarathi-samanta-5b4543328/" target="_blank" rel="noopener"
             class="btn btn-outline-dark">Connect on LinkedIn
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
-              stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12" />
-              <polyline points="12 5 19 12 12 19" />
-            </svg>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12" /><polyline points="12 5 19 12 12 19" /></svg>
           </a>
         </div>
       </div>
@@ -1613,24 +1581,14 @@
       <div class="footer-logo">Pasta.</div>
       <p>Passionate about cloud, tech, and continuous learning.<br>Let's build something awesome.</p>
       <div class="footer-socials">
-        <a href="https://www.linkedin.com/in/partha-sarathi-samanta-5b4543328/" target="_blank" rel="noopener"
-          aria-label="LinkedIn">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M20.47 2H3.53A1.45 1.45 0 002 3.47v17.06A1.45 1.45 0 003.47 22h17.06A1.45 1.45 0 0022 20.53V3.47A1.45 1.45 0 0020.47 2zM8.09 18.74h-3v-9h3v9zM6.59 8.48a1.56 1.56 0 110-3.12 1.56 1.56 0 010 3.12zM18.91 18.74h-3v-4.38c0-1.05-.02-2.38-1.45-2.38-1.45 0-1.67 1.13-1.67 2.31v4.45h-3v-9h2.88v1.23h.04a3.16 3.16 0 012.85-1.56c3.04 0 3.6 2 3.6 4.61v4.72z" />
-          </svg>
+        <a href="https://www.linkedin.com/in/partha-sarathi-samanta-5b4543328/" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.47 2H3.53A1.45 1.45 0 002 3.47v17.06A1.45 1.45 0 003.47 22h17.06A1.45 1.45 0 0022 20.53V3.47A1.45 1.45 0 0020.47 2zM8.09 18.74h-3v-9h3v9zM6.59 8.48a1.56 1.56 0 110-3.12 1.56 1.56 0 010 3.12zM18.91 18.74h-3v-4.38c0-1.05-.02-2.38-1.45-2.38-1.45 0-1.67 1.13-1.67 2.31v4.45h-3v-9h2.88v1.23h.04a3.16 3.16 0 012.85-1.56c3.04 0 3.6 2 3.6 4.61v4.72z" /></svg>
         </a>
         <a href="https://www.instagram.com/_ps_samanta1205/" target="_blank" rel="noopener" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.97.25 2.43.41.61.24 1.05.52 1.51.98.46.46.74.9.98 1.51.17.46.36 1.26.41 2.43.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.97-.41 2.43a4.07 4.07 0 01-.98 1.51c-.46.46-.9.74-1.51.98-.46.17-1.26.36-2.43.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.25-2.43-.41a4.07 4.07 0 01-1.51-.98 4.07 4.07 0 01-.98-1.51c-.17-.46-.36-1.26-.41-2.43C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.97.41-2.43a4.07 4.07 0 01.98-1.51 4.07 4.07 0 011.51-.98c.46-.17 1.26-.36 2.43-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.84 5.84 0 00-2.13 1.38A5.84 5.84 0 00.63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91a5.84 5.84 0 001.38 2.13 5.84 5.84 0 002.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.84 5.84 0 002.13-1.38 5.84 5.84 0 001.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.84 5.84 0 00-1.38-2.13A5.84 5.84 0 0019.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zM12 16a4 4 0 110-8 4 4 0 010 8zm6.41-11.15a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z" />
-          </svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.97.25 2.43.41.61.24 1.05.52 1.51.98.46.46.74.9.98 1.51.17.46.36 1.26.41 2.43.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.97-.41 2.43a4.07 4.07 0 01-.98 1.51c-.46.46-.9.74-1.51.98-.46.17-1.26.36-2.43.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.25-2.43-.41a4.07 4.07 0 01-1.51-.98 4.07 4.07 0 01-.98-1.51c-.17-.46-.36-1.26-.41-2.43C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.97.41-2.43a4.07 4.07 0 01.98-1.51 4.07 4.07 0 011.51-.98c.46-.17 1.26-.36 2.43-.41C8.42 2.17 8.8 2.16 12 2.16zM12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63a5.84 5.84 0 00-2.13 1.38A5.84 5.84 0 00.63 4.14C.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91a5.84 5.84 0 001.38 2.13 5.84 5.84 0 002.13 1.38c.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56a5.84 5.84 0 002.13-1.38 5.84 5.84 0 001.38-2.13c.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91a5.84 5.84 0 00-1.38-2.13A5.84 5.84 0 0019.86.63C19.1.33 18.22.13 16.95.07 15.67.01 15.26 0 12 0zm0 5.84a6.16 6.16 0 100 12.32 6.16 6.16 0 000-12.32zM12 16a4 4 0 110-8 4 4 0 010 8zm6.41-11.15a1.44 1.44 0 100 2.88 1.44 1.44 0 000-2.88z" /></svg>
         </a>
         <a href="https://www.facebook.com/share/16qUDBSfzA/" target="_blank" rel="noopener" aria-label="Facebook">
-          <svg viewBox="0 0 24 24" fill="currentColor">
-            <path
-              d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.01 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.08 24 18.09 24 12.07z" />
-          </svg>
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.07C24 5.41 18.63 0 12 0S0 5.41 0 12.07c0 6.02 4.39 11.01 10.13 11.93v-8.44H7.08v-3.49h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.26h3.33l-.53 3.49h-2.8v8.44C19.61 23.08 24 18.09 24 12.07z" /></svg>
         </a>
       </div>
       <p class="footer-copy">&copy; 2025 Partha Sarathi Samanta. All Rights Reserved.</p>
@@ -1641,11 +1599,7 @@
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal" id="modalContent">
       <button class="modal-close" id="modalClose" aria-label="Close modal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-          stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>
       </button>
       <div id="modalBody"></div>
     </div>
@@ -1653,10 +1607,7 @@
 
   <!-- ══════════ SCROLL TO TOP ══════════ -->
   <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
-      stroke-linejoin="round">
-      <polyline points="18 15 12 9 6 15" />
-    </svg>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15" /></svg>
   </button>
 
   <!-- ══════════ JAVASCRIPT ══════════ -->
@@ -1747,7 +1698,6 @@
 
         document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
 
-        /* Section title underline sweep */
         const titleObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
